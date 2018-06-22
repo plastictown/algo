@@ -6,8 +6,8 @@ int main(int argc, char** argv)
 {
 	print("--algo--\n");
 
-	int buf[]={3,1,2,5,6,7,8};
-    bubble_sort(buf, 7);
+	int buf[]={3,1,2,5,6,7,-1};
+    quicksort(buf,0,6);
 
     for(size_t i=0; i<7; i++)
     {
