@@ -2,17 +2,32 @@
 #include <hdr/util.h>
 #include <hdr/sort.h>
 #include <hdr/listd.h>
+#include <hdr/list.h>
+
+void print_list(node_s* l)
+{
+  node_s* ptr = l;
+  do
+  {
+    printf(" %d", ptr->payload);
+  }
+  while( (ptr = ptr->next) != NULL );
+  printf("\n");
+}
+
+
 
 int main(int argc, char** argv)
 {
-  int data = 42;
-    listd l;
-    listd_init(&l, sizeof(int));
-    for(int i=0; i< 10; i++)
-      listd_add_new(&l, &i);
-    printf("tail: %d\n", *(int*)l.tail->data );
-    printf("count: %d\n", listd_count(&l));
-    listd_clear(&l);
+  node_s* l = NULL;
+  for(uint32_t i = 1u; i <= 20u; i++)
+    list_add(&l, i);
+
+  print_list(l);
+
+  list_reverse(&l);
+
+  print_list(l);
 
 	return 0;
 }

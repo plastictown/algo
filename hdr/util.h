@@ -11,5 +11,6 @@
 #endif //STDIO_OUT
 
 void swap(void* a, void* b, size_t sz);
+int is_palindrome( const char* str);
 
 #endif //__UTIL_H__

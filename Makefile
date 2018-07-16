@@ -6,7 +6,7 @@ OBJ_DIR:=obj
 BIN_DIR:=bin
 APP_DIR:=app
 
-CFLAGS:=-O3 -I. -I$(INC_DIR)
+CFLAGS:=-O3 -Wall -Wextra -pedantic -I. -I$(INC_DIR)
 LDFLAGS:=-static
 
 ifeq ($(STDOUT),1)
@@ -18,13 +18,15 @@ all: make_obj
 		$(OBJ_DIR)/main.o \
 		$(OBJ_DIR)/util.o \
 		$(OBJ_DIR)/sort.o \
-		$(OBJ_DIR)/listd.o
+		$(OBJ_DIR)/listd.o \
+		$(OBJ_DIR)/list.o
 		
 make_obj:
 	gcc -c -o $(OBJ_DIR)/main.o $(CFLAGS) $(APP_DIR)/main.c
 	gcc -c -o $(OBJ_DIR)/util.o $(CFLAGS) $(SRC_DIR)/util.c
 	gcc -c -o $(OBJ_DIR)/sort.o $(CFLAGS) $(SRC_DIR)/sort.c
 	gcc -c -o $(OBJ_DIR)/listd.o $(CFLAGS) $(SRC_DIR)/listd.c
+	gcc -c -o $(OBJ_DIR)/list.o $(CFLAGS) $(SRC_DIR)/list.c
 	
 clean:
 	rm -f $(BIN_DIR)/*.*
