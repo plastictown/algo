@@ -20,7 +20,8 @@ all: make_obj
 		$(OBJ_DIR)/sort.o \
 		$(OBJ_DIR)/listd.o \
 		$(OBJ_DIR)/list.o \
-		$(OBJ_DIR)/search.o
+		$(OBJ_DIR)/search.o \
+		$(OBJ_DIR)/array.o
 		
 make_obj:
 	gcc -c -o $(OBJ_DIR)/main.o $(CFLAGS) $(APP_DIR)/main.c
@@ -29,6 +30,7 @@ make_obj:
 	gcc -c -o $(OBJ_DIR)/listd.o $(CFLAGS) $(SRC_DIR)/listd.c
 	gcc -c -o $(OBJ_DIR)/list.o $(CFLAGS) $(SRC_DIR)/list.c
 	gcc -c -o $(OBJ_DIR)/search.o $(CFLAGS) $(SRC_DIR)/search.c
+	gcc -c -o $(OBJ_DIR)/array.o $(CFLAGS) $(SRC_DIR)/array.c
 	
 clean:
 	rm -f $(BIN_DIR)/*.*
