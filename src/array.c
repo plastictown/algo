@@ -140,4 +140,29 @@ int array_set_at(array_t* src, void* item, size_t pos)
   return ARRAY_RET_OK;
 }
 
+size_t array_find_first (array_t* src, void* item)
+{
+  // bad pointer(s)
+  if( src  == NULL || item == NULL)
+    return ARRAY_NPOS;
 
+  if( src->data    == NULL ||
+      src->cap     == 0u   ||
+      src->len     == 0u   ||
+      src->item_sz < 1u)
+    return ARRAY_NPOS;
+
+  unsigned char* p = (unsigned char*) src->data;
+  size_t idx = 0u;
+
+  while(idx < src->len)
+  {
+    size_t* ptr = p;
+    int rv = memcmp(p, item, src->item_sz);
+    if( rv == 0 )
+      return idx;
+    p += src->item_sz;
+    idx++;
+  }
+  return ARRAY_NPOS;
+}
