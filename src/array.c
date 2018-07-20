@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <string.h>
+#include <hdr/util.h>
 
 #ifdef STDIO_OUT
 #include <stdio.h>
@@ -206,7 +207,35 @@ void array_pop_back ( array_t* src )
       int rv = array_resize( src, src->cap / ARRAY_ALLOC_POINT );
 #ifdef STDIO_OUT
       if( rv != ARRAY_RET_OK )
-        printf( "%s: array_resize() error on line %d\n", __FUNCTION__, __LINE__ );
+        printf( "array_resize() error on line %d\n", __LINE__ );
 #endif // STDIO_OUT
     }
+}
+
+void array_reverse ( array_t* src )
+{
+  if( src == NULL )
+    return;
+  if( src->data == NULL ||
+      src->cap < 2u     ||
+      src->len < 2u     ||
+      src->item_sz < 1u
+    )
+    return;
+  size_t l = 0u,
+         r = src->len - 1u;
+  unsigned char* p = (unsigned char*)src->data;
+  while(l < r)
+  {
+    size_t loffset = l*src->item_sz;
+    size_t roffset = r*src->item_sz;
+    swap(p+loffset, p+roffset, src->item_sz);
+    l++;
+    r--;
+  }
+}
+
+void array_reverse  ( array_t* src )
+{
+#error TODO MF!
 }

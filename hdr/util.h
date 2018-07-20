@@ -10,7 +10,12 @@
 #define PRINT(v,f)
 #endif //STDIO_OUT
 
+#ifdef __GNUC__
+void swap( void* a, void* b, size_t sz ) __attribute__( ( nonnull( 1, 2 ) ) );
+int is_palindrome( const char* str ) __attribute__( ( nonnull( 1 ) ) );
+#else // __GNUC__
 void swap( void* a, void* b, size_t sz );
 int is_palindrome( const char* str );
+#endif // __GNUC__
 
 #endif //__UTIL_H__

@@ -7,19 +7,6 @@
 #include <hdr/search.h>
 #include <hdr/array.h>
 
-/*
-void print_list(node_s* l)
-{
-  node_s* ptr = l;
-  do
-  {
-    printf(" %d", ptr->payload);
-  }
-  while( (ptr = ptr->next) != NULL );
-  printf("\n");
-}
-*/
-
 int main( void )
 {
   // init array
@@ -52,20 +39,13 @@ int main( void )
         }
     }
 
-  size_t len = a.len;
+    array_reverse(&a);
 
-  for( size_t k = 0u; k < len; k++ )
-    {
-      array_pop_back( &a );
-      // get & print values
-      for( size_t i = 0; i < a.cap; i++ )
-        {
-          size_t* el = array_get_at( &a, i );
-          if( el != NULL )
-            printf( " %u", *el );
-        }
-      printf( "\n[%u, %u]\n", a.len, a.cap );
-    }
+  for(size_t i = 0u; i < a.len; i++){
+    size_t* el = array_get_at(&a, i);
+    printf(" %u", *el);
+  }
+  printf("\n");
 
   array_clear( &a );
   return 0;
