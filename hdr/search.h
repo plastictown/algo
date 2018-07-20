@@ -3,6 +3,6 @@
 
 #include <stdlib.h>
 
-int* bsrc(int* src, size_t l, size_t r, int val);
+int* bsrc( int* src, size_t l, size_t r, int val );
 
 #endif //!__SEARCH_H__

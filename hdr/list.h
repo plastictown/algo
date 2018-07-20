@@ -16,6 +16,6 @@ int list_remove_last( node_s** phead );
 size_t list_size( node_s* head );
 void list_clear( node_s** phead );
 const node_s* list_find( node_s* head, uint32_t value );
-void list_reverse(node_s** phead);
+void list_reverse( node_s** phead );
 
 #endif // __LIST_H_INCLUDED__

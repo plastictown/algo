@@ -6,6 +6,7 @@
 #include <hdr/list.h>
 #include <hdr/search.h>
 #include <hdr/array.h>
+
 /*
 void print_list(node_s* l)
 {
@@ -19,51 +20,53 @@ void print_list(node_s* l)
 }
 */
 
-int main(void)
+int main( void )
 {
   // init array
   array_t a;
-  int rv = array_init(&a, sizeof(size_t));
-  if(rv != ARRAY_RET_OK){
-    printf("array_init_n() - failed\n");
-    return EXIT_FAILURE;
-  }
+  int rv = array_init( &a, sizeof( size_t ) );
+  if( rv != ARRAY_RET_OK )
+    {
+      printf( "array_init_n() - failed\n" );
+      return EXIT_FAILURE;
+    }
 
   //add items
-  for(size_t i = 1; i <= 10u; i++){
-    int rv = array_push_back(&a, &i);
-    if( rv != ARRAY_RET_OK ){
-      printf("array_push_back() - failed\n");
-      return EXIT_FAILURE;
+  for( size_t i = 1; i <= 20u; i++ )
+    {
+      int rv = array_push_back( &a, &i );
+      if( rv != ARRAY_RET_OK )
+        {
+          printf( "array_push_back() - failed\n" );
+          return EXIT_FAILURE;
+        }
     }
-  }
   // set values
-  for(size_t i = 0; i <10u; i++){
-    int rv = array_set_at(&a, &i, i);
-  if( rv != ARRAY_RET_OK ){
-      printf("array_set_at() - failed\n");
-      return EXIT_FAILURE;
+  for( size_t i = 0; i < 20u; i++ )
+    {
+      int rv = array_set_at( &a, &i, i );
+      if( rv != ARRAY_RET_OK )
+        {
+          printf( "array_set_at() - failed\n" );
+          return EXIT_FAILURE;
+        }
     }
-  }
 
-  // get & print values
-  for(size_t i = 0; i < a.cap; i++){
-    size_t* el = array_get_at(&a, i);
-    if( el != NULL )
-      printf(" %u", *el);
-  }
-  printf("\n");
+  size_t len = a.len;
 
-  size_t item = 10u;
-  size_t idx = array_find_first(&a, &item);
-  if(idx == ARRAY_NPOS){
-    printf("not found\n");
-  }else{
-    size_t* p = array_get_at(&a, idx);
-    if(p != NULL)
-      printf("index = %u, val = %u\n", idx, *p);
-  }
+  for( size_t k = 0u; k < len; k++ )
+    {
+      array_pop_back( &a );
+      // get & print values
+      for( size_t i = 0; i < a.cap; i++ )
+        {
+          size_t* el = array_get_at( &a, i );
+          if( el != NULL )
+            printf( " %u", *el );
+        }
+      printf( "\n[%u, %u]\n", a.len, a.cap );
+    }
 
-  array_clear(&a);
+  array_clear( &a );
   return 0;
 }

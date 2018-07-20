@@ -97,28 +97,28 @@ const node_s* list_find( node_s* head, uint32_t value )
   return NULL;
 }
 
-void list_reverse(node_s** phead)
+void list_reverse( node_s** phead )
 {
-  if(phead == NULL)
+  if( phead == NULL )
     return;
   // list is empty
   node_s* head = *phead;
-  if(head == NULL)
+  if( head == NULL )
     return;
   // one element in the list
-  if(head->next == NULL)
+  if( head->next == NULL )
     return;
 
   node_s* next = NULL;
   node_s* prev = NULL;
   node_s* cur  = head;
 
-  while(cur != NULL)
-  {
-    next = cur->next;
-    cur->next = prev;
-    prev = cur;
-    cur = next;
-  }
+  while( cur != NULL )
+    {
+      next = cur->next;
+      cur->next = prev;
+      prev = cur;
+      cur = next;
+    }
   *phead = prev;
 }
