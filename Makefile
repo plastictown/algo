@@ -9,9 +9,9 @@ APP_DIR:=app
 CFLAGS:=-O3 -Wall -Wextra -pedantic -I. -I$(INC_DIR)
 LDFLAGS:=-static
 
-ifeq ($(STDOUT),1)
+#ifeq ($(STDOUT),1)
   CFLAGS:=$(CFLAGS) -DSTDIO_OUT
-endif
+#endif
 
 all: make_obj
 	gcc -o $(BIN_DIR)/out.exe $(LDFLAGS) \

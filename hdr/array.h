@@ -27,7 +27,8 @@ void*  array_get_at ( array_t* src, size_t pos ) __attribute__( ( nonnull( 1 ) )
 int  array_push_back( array_t* src, void* item ) __attribute__( ( nonnull( 1, 2 ) ) );
 void array_pop_back ( array_t* src ) __attribute__( ( nonnull( 1 ) ) );
 void array_reverse  ( array_t* src ) __attribute__( ( nonnull( 1 ) ) );
-int  array_erase    ( array_t* src, size_t pos ) __attribute__( ( nonnull( 1 )));
+int  array_erase    ( array_t* src, size_t pos ) __attribute__( ( nonnull( 1 ) ) );
+int  array_swap     ( array_t* src, size_t first, size_t second ) __attribute__( ( nonnull( 1 ) ) );
 size_t array_find_first ( array_t* src, void* item ) __attribute__( ( nonnull( 1, 2 ) ) );
 #else  // __GNUC__
 int  array_init     ( array_t* src, size_t item_size )
@@ -41,6 +42,7 @@ void array_pop_back ( array_t* src );
 void array_reverse  ( array_t* src );
 int  array_erase    ( array_t* src, size_t pos ); //TODO
 size_t array_find_first ( array_t* src, void* item );
+int  array_swap     ( array_t* src, size_t first, size_t second );
 #endif // __GNUC__
 
 #endif // __ARRAY_H_INCLUDED__

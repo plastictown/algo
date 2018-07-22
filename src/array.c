@@ -235,7 +235,21 @@ void array_reverse ( array_t* src )
   }
 }
 
-void array_reverse  ( array_t* src )
+int  array_swap( array_t* src, size_t first, size_t second )
 {
-#error TODO MF!
+  //TODO
 }
+
+/*
+
+int array_erase( array_t* src, size_t pos )
+{
+  if(src == NULL)
+    return ARRAY_RET_FAIL;
+  if(src->data == NULL ||
+     src->cap  == 0u   ||
+     src->len  <= pos  ||
+     src->item_sz <1u)
+      return;
+}
+*/
