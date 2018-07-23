@@ -235,12 +235,39 @@ void array_reverse ( array_t* src )
   }
 }
 
-int  array_swap( array_t* src, size_t first, size_t second )
+int array_swap( array_t* src, size_t first, size_t second )
 {
-  //TODO
+  // bad array pointer
+  if(src == NULL)
+    return ARRAY_RET_FAIL;
+  // bad data pointer or
+  // empty array
+  if(src->data == NULL  ||
+     src->cap == 0u     ||
+     src->len == 0u     ||
+     src->item_sz == 0u)
+      return ARRAY_RET_FAIL;
+  // first & second points
+  // to the same item
+  if(first == second)
+    return ARRAY_RET_OK;
+  // out of range
+  if(first >= src->len ||
+     second >= src->len)
+    return ARRAY_RET_FAIL;
+
+  // base
+  unsigned char* p = (unsigned char*)src->data;
+  // base + index * offset
+  unsigned char* foffset = p + first *src->item_sz;
+  // base + index * offset
+  unsigned char* soffset = p + second*src->item_sz;
+
+  swap(foffset, soffset, src->item_sz);
+
+  return ARRAY_RET_OK;
 }
 
-/*
 
 int array_erase( array_t* src, size_t pos )
 {
@@ -249,7 +276,37 @@ int array_erase( array_t* src, size_t pos )
   if(src->data == NULL ||
      src->cap  == 0u   ||
      src->len  <= pos  ||
-     src->item_sz <1u)
-      return;
+     src->item_sz == 0u)
+      return ARRAY_RET_FAIL;
+  if(pos == (src->len-1)) // last item
+  {
+    src->len--;
+  }
+  else // not last item
+  {
+    size_t cpy_len = src->len - 1u - pos;
+    if(cpy_len > 0u)
+    {
+      size_t ptr = pos;
+      for(size_t i = 0u; i < cpy_len; i++)
+      {
+        void* item1 = array_get_at(src, pos+i);
+        void* item2 = array_get_at(src, pos+i+1);
+        swap(item1, item2, src->item_sz);
+        ptr++;
+      }
+    }
+    src->len--;
+  }
+
+  if( src->len < src->cap / ARRAY_ALLOC_POINT )
+    {
+      int rv = array_resize( src, src->cap / ARRAY_ALLOC_POINT );
+#ifdef STDIO_OUT
+      if( rv != ARRAY_RET_OK )
+        printf( "array_resize() error on line %d\n", __LINE__ );
+#endif // STDIO_OUT
+    }
+    return ARRAY_RET_OK;
 }
-*/
+

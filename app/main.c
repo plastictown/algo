@@ -39,7 +39,13 @@ int main( void )
         }
     }
 
-    array_reverse(&a);
+    //array_reverse (&a);
+    //int sr = array_swap (&a, 0, a.len-1);
+    //sr == ARRAY_RET_OK ?
+    //    printf("array_swap() - ok\n")
+    //  : printf("array_swap() - fail\n");
+
+    while(!array_erase(&a, 1));
 
   for(size_t i = 0u; i < a.len; i++){
     size_t* el = array_get_at(&a, i);
