@@ -301,8 +301,9 @@ int array_erase( array_t* src, size_t pos )
 
   if( src->len < src->cap / ARRAY_ALLOC_POINT )
     {
-      int rv = array_resize( src, src->cap / ARRAY_ALLOC_POINT );
+	  array_resize( src, src->cap / ARRAY_ALLOC_POINT );
 #ifdef STDIO_OUT
+	  int rv = array_resize( src, src->cap / ARRAY_ALLOC_POINT );
       if( rv != ARRAY_RET_OK )
         printf( "array_resize() error on line %d\n", __LINE__ );
 #endif // STDIO_OUT
