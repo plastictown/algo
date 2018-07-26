@@ -10,7 +10,6 @@ add_executable(algo app/main.c
 		src/sort.c
 		src/util.c)
 
-#install(TARGETS algo RUNTIME_DESTINATION bin)
 target_include_directories(algo PUBLIC ./ hdr)
 target_link_libraries(algo PUBLIC m)
 target_compile_options(algo PUBLIC -Wall -O3)
