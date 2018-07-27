@@ -22,10 +22,10 @@ node_d* listd_alloc_node( size_t sz )
     return NULL;
   n->data = calloc( 1, sz );
   if( n->data == NULL )
-    {
-      free( n );
-      return NULL;
-    }
+  {
+    free( n );
+    return NULL;
+  }
   return n;
 }
 
@@ -42,16 +42,16 @@ int listd_add_empty( listd* src )
     return -1;
   // list is empty
   if( src->count == 0u )
-    {
-      src->head = listd_alloc_node( src->sz );
-      if( src->head == NULL )
-        return -1;
-      src->head->prev = NULL;
-      src->head->next = NULL;
-      src->tail = src->head;
-      ( src->count )++;
-      return 0;
-    }
+  {
+    src->head = listd_alloc_node( src->sz );
+    if( src->head == NULL )
+      return -1;
+    src->head->prev = NULL;
+    src->head->next = NULL;
+    src->tail = src->head;
+    ( src->count )++;
+    return 0;
+  }
   node_d* n = listd_alloc_node( src->sz );
   if( n == NULL )
     return -1;

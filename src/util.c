@@ -19,20 +19,20 @@ int is_palindrome( const char* str )
   size_t half = sz / 2;
   size_t l = 0u, r = sz - 1u;
   for( size_t i = 0; i <= half; i++ )
+  {
+    while( !isalnum( str[l] ) )
+      l++;
+    while( !isalnum( str[r] ) )
+      r--;
+
+    if( l > r )
+      break;
+
+    if( toupper( str[l] ) != toupper( str[r] ) )
     {
-      while( !isalnum( str[l] ) )
-        l++;
-      while( !isalnum( str[r] ) )
-        r--;
-
-      if( l > r )
-        break;
-
-      if( toupper( str[l] ) != toupper( str[r] ) )
-        {
-          res = 0;
-          break;
-        }
+      res = 0;
+      break;
     }
+  }
   return res;
 }

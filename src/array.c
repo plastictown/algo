@@ -31,13 +31,13 @@ int  array_init_n( array_t* src, size_t item_size, size_t capacity )
     return ARRAY_RET_FAIL;
 
   if( capacity == 0u )
-    {
-      src->cap     = 0u;
-      src->data    = NULL;
-      src->item_sz = item_size;
-      src->len     = 0u;
-      return ARRAY_RET_OK;
-    }
+  {
+    src->cap     = 0u;
+    src->data    = NULL;
+    src->item_sz = item_size;
+    src->len     = 0u;
+    return ARRAY_RET_OK;
+  }
 
   src->item_sz = item_size;
   src->data    = calloc( item_size, capacity );
@@ -53,11 +53,11 @@ void array_clear( array_t* src )
   if( src == NULL )
     return;
   if( src->data == NULL )
-    {
-      src->cap = 0u;
-      src->len = 0u;
-      return;
-    }
+  {
+    src->cap = 0u;
+    src->len = 0u;
+    return;
+  }
   free( src->data );
   src->cap = 0u;
   src->data = NULL;
@@ -71,10 +71,10 @@ int array_resize( array_t* src, size_t new_cap )
   if( new_cap == src->cap )
     return ARRAY_RET_OK;
   if( new_cap == 0u )
-    {
-      array_clear( src );
-      return ARRAY_RET_OK;
-    }
+  {
+    array_clear( src );
+    return ARRAY_RET_OK;
+  }
 
   void* mem = realloc( src->data, new_cap * src->item_sz );
   if( mem == NULL )
@@ -84,12 +84,12 @@ int array_resize( array_t* src, size_t new_cap )
   if( new_cap < src->len )
     src->len = new_cap;
   else // TODO: make function array_fill(array_t* src, size_t l, size_t r, void* val);
-    {
-      unsigned char* p = ( unsigned char* )src->data;
-      size_t offset = src->len * src->item_sz;
-      size_t sz = ( new_cap - src->len ) * src->item_sz;
-      memset( p + offset, 0, sz );
-    }
+  {
+    unsigned char* p = ( unsigned char* )src->data;
+    size_t offset = src->len * src->item_sz;
+    size_t sz = ( new_cap - src->len ) * src->item_sz;
+    memset( p + offset, 0, sz );
+  }
   return ARRAY_RET_OK;
 }
 
@@ -103,23 +103,23 @@ int array_push_back( array_t* src, void* item )
     return ARRAY_RET_FAIL;
 
   if( src->data == NULL )
-    {
-      size_t new_len = ARRAY_ALLOC_POINT;
-      int ret = array_init_n( src, src->item_sz, new_len );
-      if( ret != ARRAY_RET_OK )
-        return ARRAY_RET_FAIL;
-      memcpy( src->data, item, src->item_sz );
-      src->len = 1u;
-      return ARRAY_RET_OK;
-    }
+  {
+    size_t new_len = ARRAY_ALLOC_POINT;
+    int ret = array_init_n( src, src->item_sz, new_len );
+    if( ret != ARRAY_RET_OK )
+      return ARRAY_RET_FAIL;
+    memcpy( src->data, item, src->item_sz );
+    src->len = 1u;
+    return ARRAY_RET_OK;
+  }
 
   size_t new_len = src->len + 1u;
   if( new_len > src->cap )
-    {
-      int rv = array_resize( src, new_len * ARRAY_ALLOC_POINT );
-      if( rv != ARRAY_RET_OK )
-        return rv;
-    }
+  {
+    int rv = array_resize( src, new_len * ARRAY_ALLOC_POINT );
+    if( rv != ARRAY_RET_OK )
+      return rv;
+  }
   unsigned char* p = ( unsigned char* )src->data;
   size_t offset = src->item_sz * src->len;
   memcpy( p + offset, item, src->item_sz );
@@ -174,13 +174,13 @@ size_t array_find_first ( array_t* src, void* item )
   size_t idx = 0u;
 
   while( idx < src->len )
-    {
-      int rv = memcmp( p, item, src->item_sz );
-      if( rv == 0 )
-        return idx;
-      p += src->item_sz;
-      idx++;
-    }
+  {
+    int rv = memcmp( p, item, src->item_sz );
+    if( rv == 0 )
+      return idx;
+    p += src->item_sz;
+    idx++;
+  }
   return ARRAY_NPOS;
 }
 
@@ -197,19 +197,19 @@ void array_pop_back ( array_t* src )
   src->len--;
 
   if( src->len == 0u )
-    {
-      array_clear( src );
-      return;
-    }
+  {
+    array_clear( src );
+    return;
+  }
 
   if( src->len < src->cap / ARRAY_ALLOC_POINT )
-    {
-      int rv = array_resize( src, src->cap / ARRAY_ALLOC_POINT );
+  {
+    int rv = array_resize( src, src->cap / ARRAY_ALLOC_POINT );
 #ifdef STDIO_OUT
-      if( rv != ARRAY_RET_OK )
-        printf( "array_resize() error on line %d\n", __LINE__ );
+    if( rv != ARRAY_RET_OK )
+      printf( "array_resize() error on line %d\n", __LINE__ );
 #endif // STDIO_OUT
-    }
+  }
 }
 
 void array_reverse ( array_t* src )
@@ -227,9 +227,9 @@ void array_reverse ( array_t* src )
   unsigned char* p = (unsigned char*)src->data;
   while(l < r)
   {
-    size_t loffset = l*src->item_sz;
-    size_t roffset = r*src->item_sz;
-    swap(p+loffset, p+roffset, src->item_sz);
+    size_t loffset = l * src->item_sz;
+    size_t roffset = r * src->item_sz;
+    swap(p + loffset, p + roffset, src->item_sz);
     l++;
     r--;
   }
@@ -243,25 +243,25 @@ int array_swap( array_t* src, size_t first, size_t second )
   // bad data pointer or
   // empty array
   if(src->data == NULL  ||
-     src->cap == 0u     ||
-     src->len == 0u     ||
-     src->item_sz == 0u)
-      return ARRAY_RET_FAIL;
+      src->cap == 0u     ||
+      src->len == 0u     ||
+      src->item_sz == 0u)
+    return ARRAY_RET_FAIL;
   // first & second points
   // to the same item
   if(first == second)
     return ARRAY_RET_OK;
   // out of range
   if(first >= src->len ||
-     second >= src->len)
+      second >= src->len)
     return ARRAY_RET_FAIL;
 
   // base
   unsigned char* p = (unsigned char*)src->data;
   // base + index * offset
-  unsigned char* foffset = p + first *src->item_sz;
+  unsigned char* foffset = p + first * src->item_sz;
   // base + index * offset
-  unsigned char* soffset = p + second*src->item_sz;
+  unsigned char* soffset = p + second * src->item_sz;
 
   swap(foffset, soffset, src->item_sz);
 
@@ -274,11 +274,11 @@ int array_erase( array_t* src, size_t pos )
   if(src == NULL)
     return ARRAY_RET_FAIL;
   if(src->data == NULL ||
-     src->cap  == 0u   ||
-     src->len  <= pos  ||
-     src->item_sz == 0u)
-      return ARRAY_RET_FAIL;
-  if(pos == (src->len-1)) // last item
+      src->cap  == 0u   ||
+      src->len  <= pos  ||
+      src->item_sz == 0u)
+    return ARRAY_RET_FAIL;
+  if(pos == (src->len - 1)) // last item
   {
     src->len--;
   }
@@ -290,8 +290,8 @@ int array_erase( array_t* src, size_t pos )
       size_t ptr = pos;
       for(size_t i = 0u; i < cpy_len; i++)
       {
-        void* item1 = array_get_at(src, pos+i);
-        void* item2 = array_get_at(src, pos+i+1);
+        void* item1 = array_get_at(src, pos + i);
+        void* item2 = array_get_at(src, pos + i + 1);
         swap(item1, item2, src->item_sz);
         ptr++;
       }
@@ -300,14 +300,14 @@ int array_erase( array_t* src, size_t pos )
   }
 
   if( src->len < src->cap / ARRAY_ALLOC_POINT )
-    {
-	  array_resize( src, src->cap / ARRAY_ALLOC_POINT );
+  {
+    array_resize( src, src->cap / ARRAY_ALLOC_POINT );
 #ifdef STDIO_OUT
-	  int rv = array_resize( src, src->cap / ARRAY_ALLOC_POINT );
-      if( rv != ARRAY_RET_OK )
-        printf( "array_resize() error on line %d\n", __LINE__ );
+    int rv = array_resize( src, src->cap / ARRAY_ALLOC_POINT );
+    if( rv != ARRAY_RET_OK )
+      printf( "array_resize() error on line %d\n", __LINE__ );
 #endif // STDIO_OUT
-    }
-    return ARRAY_RET_OK;
+  }
+  return ARRAY_RET_OK;
 }
 

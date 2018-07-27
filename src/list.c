@@ -8,22 +8,22 @@ node_s* list_add( node_s** phead, uint32_t value )
   if ( phead == NULL )
     return NULL;
   if ( *phead == NULL )
-    {
-      *phead = ( node_s* )calloc( 1, sizeof( node_s ) );
-      ( *phead )->next = NULL;
-      ( *phead )->payload = value;
-      return ( *phead );
-    }
+  {
+    *phead = ( node_s* )calloc( 1, sizeof( node_s ) );
+    ( *phead )->next = NULL;
+    ( *phead )->payload = value;
+    return ( *phead );
+  }
   else
-    {
-      node_s* last = list_get_last( *phead );
-      if ( last == NULL )
-        return NULL;
-      last->next = ( node_s* )calloc( 1, sizeof( node_s ) );
-      last->next->next = NULL;
-      last->next->payload = value;
-      return last->next;
-    }
+  {
+    node_s* last = list_get_last( *phead );
+    if ( last == NULL )
+      return NULL;
+    last->next = ( node_s* )calloc( 1, sizeof( node_s ) );
+    last->next->next = NULL;
+    last->next->payload = value;
+    return last->next;
+  }
   return NULL;
 }
 
@@ -45,18 +45,18 @@ int list_remove_last( node_s** phead )
   if ( head == NULL )
     return 0;
   if ( head->next == NULL )
-    {
-      free( head );
-      *phead = NULL;
-      return 0;
-    }
+  {
+    free( head );
+    *phead = NULL;
+    return 0;
+  }
   node_s* ptr = head;
   node_s* prev = NULL;
   while ( ptr->next != NULL )
-    {
-      prev = ptr;
-      ptr = ptr->next;
-    }
+  {
+    prev = ptr;
+    ptr = ptr->next;
+  }
   free( ptr );
   prev->next = NULL;
   return 1;
@@ -76,9 +76,9 @@ size_t list_size( node_s* head )
   size_t sz = 0u;
   node_s* ptr = head;
   do
-    {
-      sz++;
-    }
+  {
+    sz++;
+  }
   while ( ( ptr = ptr->next ) != NULL );
   return sz;
 }
@@ -89,10 +89,10 @@ const node_s* list_find( node_s* head, uint32_t value )
     return NULL;
   node_s* ptr = head;
   do
-    {
-      if ( ptr->payload == value )
-        return ptr;
-    }
+  {
+    if ( ptr->payload == value )
+      return ptr;
+  }
   while ( ( ptr = ptr->next ) != NULL );
   return NULL;
 }
@@ -114,11 +114,11 @@ void list_reverse( node_s** phead )
   node_s* cur  = head;
 
   while( cur != NULL )
-    {
-      next = cur->next;
-      cur->next = prev;
-      prev = cur;
-      cur = next;
-    }
+  {
+    next = cur->next;
+    cur->next = prev;
+    prev = cur;
+    cur = next;
+  }
   *phead = prev;
 }

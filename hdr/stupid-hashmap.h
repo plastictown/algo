@@ -12,15 +12,15 @@
 
 typedef enum shm_ret_state
 {
-	SHT_OK   = 0,
-	SHT_FAIL = 1
-}shm_ret_state_t;
+  SHT_OK   = 0,
+  SHT_FAIL = 1
+} shm_ret_state_t;
 
 typedef enum shm_row_state
 {
-	ROW_NORMAL  = 0,
-	ROW_DELETED = 1
-}shm_row_state_t;
+  ROW_NORMAL  = 0,
+  ROW_DELETED = 1
+} shm_row_state_t;
 
 typedef uint32_t shm_value_t;
 
@@ -34,27 +34,27 @@ typedef uint32_t shm_value_t;
  */
 typedef struct hash_pair
 {
-	shm_row_state_t del; /**< deleted flag */
-	node_s*  l;   /**< List of values */
+  shm_row_state_t del; /**< deleted flag */
+  node_s*  l;   /**< List of values */
 } hash_pair_t;
 
 #pragma pack (pop)
 
 typedef struct stupid_hashmap
 {
-	array_t rows; /** array of hash_pair structs */
+  array_t rows; /** array of hash_pair structs */
 } stupid_hashmap_t;
 
 #ifdef __GNUC__
-	uint32_t stupid_hash ( void* key, size_t key_sz ) __attribute__( ( nonnull( 1 ) ) );
-	int  sht_init (stupid_hashmap_t* table) __attribute__( ( nonnull( 1 ) ) );
-	void sht_clear(stupid_hashmap_t* table) __attribute__( ( nonnull( 1 ) ) );
-	int  sht_insert(stupid_hashmap_t* table, void* key, size_t key_sz, shm_value_t* val) __attribute__( ( nonnull( 1, 2, 4 ) ) );
+uint32_t stupid_hash ( void* key, size_t key_sz ) __attribute__( ( nonnull( 1 ) ) );
+int  sht_init (stupid_hashmap_t* table) __attribute__( ( nonnull( 1 ) ) );
+void sht_clear(stupid_hashmap_t* table) __attribute__( ( nonnull( 1 ) ) );
+int  sht_insert(stupid_hashmap_t* table, void* key, size_t key_sz, shm_value_t* val) __attribute__( ( nonnull( 1, 2, 4 ) ) );
 #else // __GNUC__
-	uint32_t stupid_hash ( void* key, size_t key_sz );
-	int  sht_init (stupid_hashmap_t* table);
-	void sht_clear(stupid_hashmap_t* table);
-	int  sht_insert(stupid_hashmap_t* table, void* key, size_t key_sz, shm_value_t* val);
+uint32_t stupid_hash ( void* key, size_t key_sz );
+int  sht_init (stupid_hashmap_t* table);
+void sht_clear(stupid_hashmap_t* table);
+int  sht_insert(stupid_hashmap_t* table, void* key, size_t key_sz, shm_value_t* val);
 #endif// __GNUC__
 
 

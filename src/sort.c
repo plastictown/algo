@@ -21,11 +21,11 @@ void quicksort( int* src, size_t l, size_t r )
     return;
 
   if( l < r )
-    {
-      int q = quicksort_partition( src, l, r );
-      quicksort( src, l, q );
-      quicksort( src, q + 1, r );
-    }
+  {
+    int q = quicksort_partition( src, l, r );
+    quicksort( src, l, q );
+    quicksort( src, q + 1, r );
+  }
 }
 size_t quicksort_partition( int* src, size_t l, size_t r )
 {
@@ -34,14 +34,14 @@ size_t quicksort_partition( int* src, size_t l, size_t r )
   size_t j = r;
 
   while( i <= j )
-    {
-      while( src[i] < o )
-        i++;
-      while( src[j] > o )
-        j--;
-      if( i >= j )
-        break;
-      swap( &src[i++], &src[j--], sizeof( int ) );
-    }
+  {
+    while( src[i] < o )
+      i++;
+    while( src[j] > o )
+      j--;
+    if( i >= j )
+      break;
+    swap( &src[i++], &src[j--], sizeof( int ) );
+  }
   return j;
 }
