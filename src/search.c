@@ -15,7 +15,7 @@ int* bsrc( int* src, size_t l, size_t r, int val )
   if( val < src[m] )
     return bsrc( src, l, m - 1, val );
   else if( val > src[m] )
-    return bsrc( src, l + 1, r, val );
+    return bsrc( src, m + 1, r, val );
   else
     return ( src + m );
 
