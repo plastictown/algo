@@ -1,0 +1,3 @@
+[submodule "ya"]
+	path = ya
+	url = https://github.com/plastictown/ya.git
