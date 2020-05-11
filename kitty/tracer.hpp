@@ -7,7 +7,8 @@
 #include <string>
 #include <chrono>
 
-class Tracer {
+class Tracer
+{
 public:
   Tracer(const std::string& s, bool header = true, bool footer = true) :
     _s{ s },
@@ -18,7 +19,8 @@ public:
     if (_print_header)
       std::cout << _s << ": [start]" << std::endl;
   }
-  ~Tracer() {
+  ~Tracer()
+  {
     if (!_print_footer)
       return;
     decltype(_start) _end{ std::chrono::high_resolution_clock::now() };
@@ -36,11 +38,11 @@ private:
 };
 
 #ifdef DEBUG_TRACE
-  #define TRACE Tracer __t__ (__FUNCTION__)
+#define TRACE Tracer __t__ (__FUNCTION__)
 #define TRACEP(h,f) Tracer __t__ (__FUNCTION__,(h),(f))
 #else
-  #define TRACE 
-  #define TRACEP(h,f) 
+#define TRACE
+#define TRACEP(h,f)
 #endif // !DEBUG_TRACE
 
 #endif // !__TRACER_HPP__

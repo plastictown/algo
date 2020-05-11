@@ -31,7 +31,7 @@ int  array_erase    ( array_t* src, size_t pos ) __attribute__( ( nonnull( 1 ) )
 int  array_swap     ( array_t* src, size_t first, size_t second ) __attribute__( ( nonnull( 1 ) ) );
 size_t array_find_first ( array_t* src, void* item ) __attribute__( ( nonnull( 1, 2 ) ) );
 #else  // __GNUC__
-int  array_init     ( array_t* src, size_t item_size )
+int  array_init     (array_t* src, size_t item_size);
 int  array_init_n   ( array_t* src, size_t item_size, size_t capacity );
 void array_clear    ( array_t* src );
 int  array_resize   ( array_t* src, size_t new_cap );

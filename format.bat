@@ -1,1 +1,1 @@
-astyle  ./src/*.c ./hdr/*.h  -s2 --style=allman --pad-oper --align-pointer=type --align-reference=type --suffix=none --mode=c -c -v
+astyle  ./src/*.c ./hdr/*.h  ./kitty/*.cpp ./kitty/*.hpp -s2 --style=allman --pad-oper --align-pointer=type --align-reference=type --suffix=none --mode=c -c -v

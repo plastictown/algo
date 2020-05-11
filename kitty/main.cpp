@@ -19,7 +19,8 @@ void task3();
 
 //----------------------------------------------------------//
 
-int main() {
+int main()
+{
   //task1(1000000);
   task2();
   std::cin.get();
@@ -28,7 +29,8 @@ int main() {
 
 //----------------------------------------------------------//
 
-void task1(uint32_t N) {
+void task1(uint32_t N)
+{
 
   using value_type = uint32_t;
   std::vector<value_type> v;
@@ -39,8 +41,10 @@ void task1(uint32_t N) {
 
   //---------------------------//
 
-  auto proc = [N](decltype(v)& _v, decltype(can_write)& _w, decltype(rd1)& _flag) {
-    for (size_t i = 0; i < N; ++i) {
+  auto proc = [N](decltype(v)& _v, decltype(can_write)& _w, decltype(rd1)& _flag)
+  {
+    for (size_t i = 0; i < N; ++i)
+    {
       while (std::atomic_flag_test_and_set(&_w));
       _v.push_back(i);
       std::atomic_flag_clear(&_w);
@@ -51,9 +55,13 @@ void task1(uint32_t N) {
 
   //---------------------------//
 
-  auto final_proc = [](decltype(v)& _v, decltype(rd1)& flag1, decltype(rd2)& flag2) {
+  auto final_proc = [](decltype(v)& _v, decltype(rd1)& flag1, decltype(rd2)& flag2)
+  {
     while (!(flag1 && flag2));
-    std::for_each(_v.begin(), _v.end(), [](value_type& arg) {arg += 1; });
+    std::for_each(_v.begin(), _v.end(), [](value_type & arg)
+    {
+      arg += 1;
+    });
     std::cout << "exit final_proc" << std::endl;
   };
 
@@ -73,7 +81,8 @@ void task1(uint32_t N) {
 
 //----------------------------------------------------------//
 
-void task2() {
+void task2()
+{
 
   using value_type = int;
   using cont_type = std::vector<value_type>;
@@ -83,9 +92,11 @@ void task2() {
   locker l;
   std::mutex m;
 
-  auto foo = [&]() {
+  auto foo = [&]()
+  {
     TRACE;
-    for (size_t i = 0; i < cycles; ++i) {
+    for (size_t i = 0; i < cycles; ++i)
+    {
       std::lock_guard<decltype(l)> lock(l);
       ct.push_back(value_type{});
       std::this_thread::yield();
@@ -93,9 +104,11 @@ void task2() {
     std::cout << "exit_thread" << std::endl;
   };
 
-  auto bar = [&]() {
+  auto bar = [&]()
+  {
     TRACE;
-    for (size_t i = 0; i < cycles; ++i) {
+    for (size_t i = 0; i < cycles; ++i)
+    {
       std::lock_guard<decltype(m)> lock(m);
       ct.push_back(value_type{});
       std::this_thread::yield();
@@ -123,6 +136,7 @@ void task2() {
 
 //----------------------------------------------------------//
 
-void task3() {
+void task3()
+{
   object_counter<int, locker> ctr;
 }
